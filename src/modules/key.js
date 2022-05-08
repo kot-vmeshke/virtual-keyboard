@@ -1,13 +1,31 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-undef */
 export default class Key {
-  constructor(value, span) {
+  constructor(value, letter) {
     this.value = value;
+    this.letter = letter;
   }
 
   create() {
-    let customKey = document.createElement('div');
-    customKey.classList.add('key');
-    document.querySelector('.keyboard').append(customKey);
-    customKey.innerText = this.value;
+    const textarea = document.querySelector('.textarea');
+    const keyboard = document.querySelector('.keyboard');
+    const key = document.createElement('div');
+    key.classList.add('key');
+    keyboard.append(key);
+    key.innerText = this.value;
+    document.addEventListener('keyup', (event) => {
+      if (event.key.toLowerCase() === this.value.toLowerCase()) {
+        key.style.backgroundColor = '#fd5ce2';
+        setTimeout(() => { key.style.backgroundColor = ''; }, 500);
+      }
+    });
+    key.addEventListener('click', () => {
+      if (this.letter) {
+        textarea.textContent += this.value;
+      }
+      if (this.value === 'Backspace') {
+        textarea.textContent = textarea.textContent.substring(0, textarea.textContent.length - 1);
+      }
+    });
   }
-
 }
