@@ -23,6 +23,10 @@ export default class Key {
       if (this.letter) {
         textarea.textContent += this.value;
       }
+      if (this.value === 'Enter') {
+        // eslint-disable-next-line quotes
+        textarea.textContent += `\n`;
+      }
       if (this.value === 'Backspace') {
         textarea.textContent = textarea.textContent.substring(0, textarea.textContent.length - 1);
       }
